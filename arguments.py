@@ -15,7 +15,7 @@ Description:
 command to use
 
 To Draw BaseLines
-python arguments.py -b 1 -i /home/sohaib/Desktop/lines/image.jpg -o /home/sohaib/Desktop/lines/output.jpg -f /home/sohaib/Desktop/lines/file.json
+python arguments.py -b 1 -i /home/sohaib/Desktop/lines/Draw_lines/image.jpg -o /home/sohaib/Desktop/lines/Draw_lines/output.jpg -f /home/sohaib/Desktop/lines/Draw_lines/file.json
 
 To Draw Lines
 python arguments.py -b 1 -i /home/sohaib/Desktop/lines/image.jpg -o /home/sohaib/Desktop/lines/output.jpg -f /home/sohaib/Desktop/lines/file.json
@@ -107,14 +107,16 @@ def draw_lines(key, image):
         lines = json_object['lines']
         for i in lines:
             baseline = tuple([j for num in i['baseline'] for j in num])
-            draw.line(baseline, fill=128)
+            draw.line(line, fill=128, width=9)
     
     elif key == 'line':
         lines = json_object['lines']
         for i in lines:
             boundry = i['boundary']
+            boundry.append(boundry[-1])
+            boundry.append(boundry[0])
             line = [num for line in boundry for num in line]
-            draw.line(line, fill=128)
+            draw.line(line, fill=128, width=9)
 
     else:
         lines = json_object['lines']
@@ -122,8 +124,10 @@ def draw_lines(key, image):
             baseline = tuple([j for num in i['baseline'] for j in num])
             draw.line(baseline, fill=128)
             boundry = i['boundary']
+            boundry.append(boundry[-1])
+            boundry.append(boundry[0])
             line = [num for line in boundry for num in line]
-            draw.line(line, fill=128)
+            draw.line(line, fill=128, width=9)
             
     
     return image
